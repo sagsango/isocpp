@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 #include <memory>
 
@@ -10,15 +11,16 @@ class B{
 public:
     B(){
         std::cout << "Constructor" << std::endl;
-				//std:: cout << a->msg() << std::end();
+				std:: cout << a->msg() << std::end();
+				// TODO: can have pointer but cant have call the members
     }
     ~B(){
         std::cout << "Distructor" << std::endl;
     }
     void msg(){
         std::cout << "Im in B!" << std::endl;
-        A *a; // NO Object yes assigned
     }
+		A *a; // NO Object yes assigned
 };
 
 class A{
@@ -31,9 +33,10 @@ public:
     }
     void msg(){
         std::cout << "Im in A!" << std::endl;
-        B b; // Object has assigned
-        b.msg();
+               //b.msg();
     }
+		 //B b; // Object has assigned
+
 };
 
 
