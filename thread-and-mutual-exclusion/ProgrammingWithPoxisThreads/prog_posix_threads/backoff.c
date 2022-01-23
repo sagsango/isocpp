@@ -41,6 +41,7 @@ void *lock_forward (void *arg)
         for (i = 0; i < 3; i++) {
             if (i == 0) {
                 status = pthread_mutex_lock (&mutex[i]);
+								printf(" forward lock got %d\t",i);
                 if (status != 0)
                     err_abort (status, "First lock");
             } else {
@@ -62,11 +63,13 @@ void *lock_forward (void *arg)
                         status = pthread_mutex_unlock (&mutex[i]);
                         if (status != 0)
                             err_abort (status, "Backoff");
+												printf(" forward lock giveup %d\t",i);
                     }
                 } else {
                     if (status != 0)
                         err_abort (status, "Lock mutex");
-                    DPRINTF ((" forward locker got %d\n", i));
+                    printf(" forward locker got %d\t", i);
+
                 }
             }
             /*
@@ -108,6 +111,7 @@ void *lock_backward (void *arg)
         for (i = 2; i >= 0; i--) {
             if (i == 2) {
                 status = pthread_mutex_lock (&mutex[i]);
+								printf( " backward locker got %d\t", i);
                 if (status != 0)
                     err_abort (status, "First lock");
             } else {
@@ -129,11 +133,13 @@ void *lock_backward (void *arg)
                         status = pthread_mutex_unlock (&mutex[i]);
                         if (status != 0)
                             err_abort (status, "Backoff");
+												 printf(" backward locker giveup %d\t", i);
+
                     }
                 } else {
                     if (status != 0)
                         err_abort (status, "Lock mutex");
-                    DPRINTF ((" backward locker got %d\n", i));
+                    printf(" backward locker got %d\t", i);
                 }
             }
             /*

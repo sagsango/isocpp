@@ -14,6 +14,7 @@
 #include <time.h>
 #include "errors.h"
 
+#define DEBUG
 /*
  * The "alarm" structure now contains the time_t (time since the
  * Epoch, in seconds) for each alarm, so that they can be

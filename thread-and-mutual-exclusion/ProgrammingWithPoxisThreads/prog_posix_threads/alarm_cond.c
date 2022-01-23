@@ -33,6 +33,11 @@ pthread_cond_t alarm_cond = PTHREAD_COND_INITIALIZER;
 alarm_t *alarm_list = NULL;
 time_t current_alarm = 0;
 
+#ifndef DEBUG
+#define DEBUG
+#endif
+
+#define run_status(s) printf("Running Function:"s);
 /*
  * Insert alarm entry on list, in order.
  */
@@ -113,8 +118,10 @@ void *alarm_thread (void *arg)
          * added. Setting current_alarm to 0 informs the insert
          * routine that the thread is not busy.
          */
+				run_status("alarm_list:0\n");
         current_alarm = 0;
         while (alarm_list == NULL) {
+					run_status("alarm_thread:1\n");
             status = pthread_cond_wait (&alarm_cond, &alarm_mutex);
             if (status != 0)
                 err_abort (status, "Wait on cond");
@@ -132,6 +139,7 @@ void *alarm_thread (void *arg)
             cond_time.tv_nsec = 0;
             current_alarm = alarm->time;
             while (current_alarm == alarm->time) {
+							run_status("alarm_thread:2\n");
                 status = pthread_cond_timedwait (
                     &alarm_cond, &alarm_mutex, &cond_time);
                 if (status == ETIMEDOUT) {
@@ -146,7 +154,7 @@ void *alarm_thread (void *arg)
         } else
             expired = 1;
         if (expired) {
-            printf ("(%d) %s\n", alarm->seconds, alarm->message);
+            printf ("Buzzing Alarm: (%d) %s\n", alarm->seconds, alarm->message);
             free (alarm);
         }
     }
