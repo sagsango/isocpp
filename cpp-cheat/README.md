@@ -1,3 +1,4 @@
+[ This repo is copied here for study purpose, I am not owner or writer of this content ]
 # C++ Cheat
 
 This repo is moving to: https://github.com/cirosantilli/linux-kernel-module-cheat#userland-content
